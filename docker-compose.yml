@@ -1,0 +1,40 @@
+services:
+
+  db:
+    image: postgres:latest
+    container_name: postgres
+    restart: always
+    shm_size: 128mb
+    environment:
+      POSTGRES_DB: dataBaseNameHere
+      POSTGRES_USER: toto_or_your_user_name_here
+      POSTGRES_PASSWORD: Str0ng_P@s5w0rD_h3re
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./database/local_pgData:/var/lib/postgresql/data
+
+  ubuntu:
+    image: my_ubuntu
+    container_name: my_ubuntu
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "80:80"
+    volumes:
+      - "./web_site:/var/www/html/"
+
+  pgAdmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgAdmin
+    depends_on:
+      - db
+    restart: always
+    ports:
+      - "8888:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL= user@email.here
+      - PGADMIN_DEFAULT_PASSWORD= Str0ng_P@s5w0rD_h3re
+    volumes:
+      - ./database/pgAdmin_data:/var/lib/pgadmin
