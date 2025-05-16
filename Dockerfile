@@ -20,5 +20,9 @@ RUN a2enconf php8.3-fpm
 # Install Node.js
 RUN apt install -y nodejs
 
+# https certif
+RUN apt install certbot
+RUN apt install python3-certbot-apache
+
 
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
