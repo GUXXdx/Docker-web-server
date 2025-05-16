@@ -6,8 +6,8 @@ services:
     restart: always
     shm_size: 128mb
     environment:
-      POSTGRES_DB: dataBaseNameHere
-      POSTGRES_USER: toto_or_your_user_name_here
+      POSTGRES_DB: postgres
+      POSTGRES_USER:
       POSTGRES_PASSWORD: Str0ng_P@s5w0rD_h3re
     ports:
       - "5432:5432"
@@ -22,6 +22,7 @@ services:
       - db
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - "./web_site:/var/www/html/"
 
@@ -34,7 +35,7 @@ services:
     ports:
       - "8888:80"
     environment:
-      - PGADMIN_DEFAULT_EMAIL= user@email.here
+      - PGADMIN_DEFAULT_EMAIL=user@email.here
       - PGADMIN_DEFAULT_PASSWORD= Str0ng_P@s5w0rD_h3re
     volumes:
       - ./database/pgAdmin_data:/var/lib/pgadmin
